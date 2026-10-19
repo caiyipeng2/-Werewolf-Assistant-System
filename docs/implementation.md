@@ -1,0 +1,21 @@
+# 狼语复盘 Android implementation
+
+Goal: deliver an installed, signed, offline APK from the supplied requirements; user delegates intermediate design decisions.
+
+Native Java Android API 29+, target 35, Vosk Chinese small model embedded, no Internet permission. No microphone source, no game integration or message sending. AudioPlaybackCapture filters by the selected app UID; user-granted MediaProjection foreground service, draggable overlay and notification stop/pause. Native screens: session, transcript, analysis, speech editor, settings. Board presets plus custom 5–20 player role composition; public claims remain unverified until manual confirmation. Rules produce explainable heuristic estimates, not calibrated probabilities. Local atomic persistence, session archive, text/JSON export via system picker.
+
+## Shared Java contract (package com.langyu.assistant)
+
+- `GameState`: public String id,boardName,phase,draft; int day,speaker,wolfCount; String[] roles; List<Speech> speeches; List<Event> events; Map<Integer,String> locks; Set<Integer> dead. Default standard 12-player. configure(String name,String[] roles,int wolves) clears match state. addSpeech(int day,int speaker,String text) returns Speech; nextSpeaker(); public static nested Speech {String id,text; int day,speaker; long timestamp;} and Event {String type,detail;int day,actor,target;long timestamp;}. Collections mutable on main thread only. `players()` returns roles.length.
+- `RuleEngine`: static List<Assessment> analyze(GameState), static String framework(GameState,String identity,String style), static String normalize(String). Assessment public int seat,probability; String label; List<String> reasons. Rules honor only user-locked verified info for 0/100. Ordinary speech evidence bounded; all roles recognized through wolf role classification. static boolean isWolfRole(String).
+- `Repository`: singleton `get(Context)`; public GameState state; synchronized save(); archive(); List<String[]> archives() entries id,title; load(String id); deleteAll(); String exportJson(); String exportText(); List<Board> boards(); void addBoard(Board). Board public String id,name,notes; int wolves; String[] roles.
+- `CaptureService`: static volatile boolean running,paused; static volatile String status,partial; static volatile int level; static String ACTION_PAUSE,ACTION_STOP,ACTION_NEXT,ACTION_FLUSH,ACTION_OVERLAY; service start intent extras `code` int, `data` Intent. Settings via SharedPreferences("settings"): `targetPackage` string default com.netease.werewolf; `overlay` bool default true. Broadcast `com.langyu.assistant.UPDATE` package scoped; state changes dispatched main thread. Public static `model(Context)` synchronized returns org.vosk.Model, `modelReady(Context)` boolean. Overlay edits repository draft and speaker. Capture no auto seat attribution; user selects speaker, VAD separates text only.
+- `MainActivity`: listens UPDATE, controls permissions and start capture via service; reads repository and settings. Export ACTION_CREATE_DOCUMENT writes on result. UI user information should explain how to select capture source, set speaker, lock verified info, pause and stop. Persistent draft text; never replace while typing from live refresh. Stable view content descriptions for test automation. No fake data in user default session.
+
+## Execution and verification
+
+1. Core worker writes behavior-first JVM tests for neutral priors, manual locks, role configuration, contradiction and bounded speech evidence; implements GameState and RuleEngine.
+2. Root builds manifest/resource/persistence/audio/overlay; source files app/src/com/langyu/assistant/*.java, dependencies under vendor, model under app/assets.
+3. UI worker implements MainActivity with contract, all functions reachable.
+4. Manual SDK build via aapt2, javac, d8, zipalign, apksigner; persistent project-specific signing key. Universal arm64/armv7/x86_64 build.
+5. On connected device install, cold launch, inspect all screens, custom board, speech edit, locks, analysis, draft persistence, archive/export; run instrumentation with bundled model and separate allowed-audio player to verify capture/transcription, pause/stop and overlay. Record outputs in work/verification. Review and repair before final delivery.

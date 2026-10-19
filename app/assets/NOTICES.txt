@@ -1,0 +1,30 @@
+狼语复盘 / Langyu
+
+Speech recognition: Vosk API 0.3.75, Copyright Alpha Cephei Inc., Apache License 2.0.
+https://github.com/alphacep/vosk-api
+Chinese model: vosk-model-small-cn-0.22, Apache License 2.0.
+https://alphacephei.com/vosk/models
+Java Native Access 5.18.1, Apache License 2.0 option.
+https://github.com/java-native-access/jna
+The full Apache 2.0 license is distributed in LICENSE-APACHE-2.0.txt.
+No network permission or cloud inference is used in this application.
+Board sources and aliases: boards-sources.md packaged separately in project research.
+
+Offline screenshot OCR: Tesseract4Android 4.9.0 (standard variant),
+Copyright 2019 Adaptech s.r.o., Robert Posel, Apache License 2.0.
+https://github.com/adaptech-cz/Tesseract4Android/tree/4.9.0
+Tesseract OCR 5.5.1, Apache License 2.0.
+https://github.com/tesseract-ocr/tesseract/tree/5.5.1
+Simplified Chinese and English tessdata_fast LSTM models, Apache License 2.0,
+commit 87416418657359cb625c412a48b6e1d6d41c29bd.
+https://github.com/tesseract-ocr/tessdata_fast/tree/87416418657359cb625c412a48b6e1d6d41c29bd
+Leptonica 1.85.0, BSD-style license, Copyright Dan S. Bloomberg.
+https://github.com/DanBloomberg/leptonica/tree/1.85.0
+libpng 1.6.48, PNG Reference Library License.
+https://github.com/pnggroup/libpng/tree/v1.6.48
+libjpeg v9f, Independent JPEG Group license.
+This software is based in part on the work of the Independent JPEG Group.
+https://www.ijg.org/
+Full OCR component license texts are bundled as OCR-*-LICENSE.txt assets.
+The OCR wrapper in this application is an original integration; upstream
+Tesseract4Android and its native libraries are distributed unmodified.

@@ -1,0 +1,8 @@
+[
+  {"path":"vendor/vosk.aar","url":"https://repo.maven.apache.org/maven2/com/alphacephei/vosk-android/0.3.75/vosk-android-0.3.75.aar","sha256":"ab2f8b91ac8051561aa325546b35fed9a68b36b8121bac5c6fb927525c4adfad"},
+  {"path":"vendor/jna.aar","url":"https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.18.1/jna-5.18.1.aar","sha256":"7f053e3ec99e14dd71259c82c1c8a02738d64a13c31226b2acc170f3060951e0"},
+  {"path":"vendor/tesseract.aar","url":"https://jitpack.io/cz/adaptech/tesseract4android/tesseract4android/4.9.0/tesseract4android-4.9.0.aar","sha256":"bce5d6413a1a5ae3d7240033fbbc851ba3217d0a08d9769400e17a077f42cb2a"},
+  {"path":"app/assets/asr-model.zip","url":"https://alphacephei.com/vosk/models/vosk-model-small-cn-0.22.zip","sha256":"3af8b0e7e0f835ae9d414ce5df580237a3cfb08d586c9fbbb0f7ff29ad5b14ba"},
+  {"path":"app/assets/ocr/chi_sim.traineddata","url":"https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/chi_sim.traineddata","sha256":"a5fcb6f0db1e1d6d8522f39db4e848f05984669172e584e8d76b6b3141e1f730"},
+  {"path":"app/assets/ocr/eng.traineddata","url":"https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/eng.traineddata","sha256":"7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2"}
+]

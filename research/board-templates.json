@@ -1,0 +1,119 @@
+[
+  {
+    "id": "guard_12_unverified",
+    "name": "12人预女猎守",
+    "players": 12,
+    "wolves": null,
+    "roles": [],
+    "notes": "官方历史公告确认该板名；本次未在可核对来源中取得完整逐席配方，使用自定义编辑确认4狼/功能狼等房规后保存。",
+    "source": "https://langrensha.com/news/official/2018/01/25/26904_737428.html"
+  },
+  {
+    "id": "mechanic_12_unverified",
+    "name": "机械狼通灵师（通用参考）",
+    "players": 12,
+    "wolves": null,
+    "roles": [],
+    "notes": "通用狼人杀板型；检索到的App Store《机械狼通灵师》活动属于另一款应用id1126393139，不能据此宣称网易已上线。请在自定义板子录入本局实际配置。",
+    "source": "https://apps.apple.com/us/app/狼人杀/id1126393139?eventid=6817236002"
+  },
+  {
+    "id": "moonlight_unverified",
+    "name": "月坠光渊",
+    "players": null,
+    "wolves": null,
+    "roles": [],
+    "notes": "官方活动页确认觉醒守卫、觉醒白狼王与月坠光渊板名；本次未核实完整逐席配方。",
+    "source": "https://www.taptap.cn/game-event/9474"
+  },
+  {
+    "id": "windshadow_unverified",
+    "name": "风声谍影",
+    "players": null,
+    "wolves": null,
+    "roles": [],
+    "notes": "官方活动页确认双觉醒石像鬼配置；本次仅使用官方活动摘要，未核实完整逐席配置，不纳入预置。",
+    "source": "https://www.taptap.cn/game-event/10168"
+  },
+  {
+    "id": "awakened_dream_unverified",
+    "name": "觉醒摄梦人",
+    "players": null,
+    "wolves": null,
+    "roles": [],
+    "notes": "官网预告及官方活动页确认2026年4月7日推出；本次未从原始官方配方页核实完整逐席配置。",
+    "source": "https://langrensha.com/news/update/20260402/26905_1294456.html"
+  },
+  {
+    "id": "awakened_witch_10_unverified",
+    "name": "10人觉醒女巫",
+    "players": 10,
+    "wolves": null,
+    "roles": [],
+    "notes": "同篇官方公告确认10人娱乐场，但仅用文字公布12人进阶场的完整配方；不能由12人场自行删两席。",
+    "source": "https://langrensha.com/news/official/20240805/26904_1171626.html"
+  },
+  {
+    "id": "awakened_wolfking_10_unverified",
+    "name": "10人觉醒狼王",
+    "players": 10,
+    "wolves": null,
+    "roles": [],
+    "notes": "狼人杀官方公告确认10人娱乐场，本次未核实完整逐席配方。",
+    "source": "https://www.sohu.com/a/707149603_100077559"
+  },
+  {
+    "id": "animal_10_unverified",
+    "name": "10人动物梦境",
+    "players": 10,
+    "wolves": null,
+    "roles": [],
+    "notes": "官网确认10人娱乐场，本次核实的文字配方仅为12人进阶场。",
+    "source": "https://langrensha.com/news/official/20211025/26904_981415.html"
+  },
+  {
+    "id": "lonely_12_unverified",
+    "name": "12人孤独少女（暗恋者）",
+    "players": 12,
+    "wolves": null,
+    "roles": [],
+    "notes": "官方WDL赛制列出12人孤独少女板，本次未核实完整逐席配方；与已收录觉醒孤独少女分开。",
+    "source": "https://langrensha.com/20240311/31024_1142591.html"
+  },
+  {
+    "id": "beauty_hunter_knight_12_unverified",
+    "name": "12人狼美猎骑",
+    "players": 12,
+    "wolves": null,
+    "roles": [],
+    "notes": "2023两千日盛典官方活动板；完整逐席配方未在本次读取的官方正文中列明。",
+    "source": "https://langrensha.com/news/official/20230417/26904_1083258.html"
+  },
+  {
+    "id": "ai_6_unverified",
+    "name": "6人智械场",
+    "players": 6,
+    "wolves": null,
+    "roles": [],
+    "notes": "官方TapTap公告列表确认2024年5月30日推出；为智械玩法，需按游戏实际房规配置，不能借用6人明牌配方。",
+    "source": "https://www.taptap.cn/app/55012/topic?page=4&type=official"
+  },
+  {
+    "id": "wolfking_plan_unverified",
+    "name": "狼王计划",
+    "players": null,
+    "wolves": null,
+    "roles": [],
+    "notes": "官方App Store活动确认2026年8月上线；本次未核实逐席配方。",
+    "source": "https://apps.apple.com/cn/app/狼人杀-官方正版/id1281434850?eventid=6800972068"
+  },
+  {
+    "id": "auction_unverified",
+    "name": "竞拍之夜",
+    "players": null,
+    "wolves": null,
+    "roles": [],
+    "notes": "官方应用版本说明确认竞拍之夜；属于特殊玩法，不能推断为普通12人屠边板。",
+    "source": "https://www.taptap.cn/app/55012/all-info?platform=android"
+  }
+]

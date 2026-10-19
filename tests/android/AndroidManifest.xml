@@ -1,0 +1,27 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.langyu.assistant.tests" android:versionCode="1" android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="35" />
+    <application android:label="狼语独立验证" android:allowBackup="false" android:hasCode="true"
+        android:allowAudioPlaybackCapture="true">
+        <activity android:name="com.langyu.assistant.AudioSourceActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.langyu.assistant.ScreenFixtureActivity"
+            android:exported="true" android:launchMode="singleTop"
+            android:label="模拟对局识别验证">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+    <instrumentation android:name="com.langyu.assistant.SmokeInstrumentation"
+        android:targetPackage="com.langyu.assistant" android:functionalTest="true"
+        android:handleProfiling="false" android:label="Repository and offline ASR smoke checks" />
+    <instrumentation android:name="com.langyu.assistant.OcrInstrumentation" android:targetPackage="com.langyu.assistant" android:label="Offline Chinese screenshot OCR checks" />
+    <instrumentation android:name="com.langyu.assistant.ScreenBindingReportInstrumentation" android:targetPackage="com.langyu.assistant" android:label="Read-only actual projection binding verification" />
+    <instrumentation android:name="com.langyu.assistant.ScreenTestCleanupInstrumentation" android:targetPackage="com.langyu.assistant" android:label="Selective synthetic self-card cleanup" />
+</manifest>
