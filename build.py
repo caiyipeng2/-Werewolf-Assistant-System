@@ -55,7 +55,7 @@ def main():
     key = ROOT/'signing'/'langyu-release.p12';key.parent.mkdir(exist_ok=True)
     # Project-specific local signing identity retained for compatible future updates.
     if not key.exists():run(JDK/'bin'/'keytool.exe','-genkeypair','-keystore',key,'-storetype','PKCS12','-storepass','langyu-local-release','-keypass','langyu-local-release','-alias','langyu','-keyalg','RSA','-keysize','3072','-validity','10000','-dname','CN=Langyu Local Release, O=Langyu, C=CN')
-    apk = OUT/'Langyu-1.1.0-universal.apk'
+    apk = OUT/'Langyu-1.1.1-universal.apk'
     run(JDK/'bin'/'java.exe','-jar',BT/'lib'/'apksigner.jar','sign','--ks',key,'--ks-key-alias','langyu','--ks-pass','pass:langyu-local-release','--key-pass','pass:langyu-local-release','--out',apk,WORK/'aligned.apk')
     run(JDK/'bin'/'java.exe','-jar',BT/'lib'/'apksigner.jar','verify','--verbose','--print-certs',apk)
     run(BT/'zipalign.exe','-c','-v','4',apk)

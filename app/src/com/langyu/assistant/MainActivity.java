@@ -24,6 +24,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.media.projection.MediaProjectionManager;
+import android.media.projection.MediaProjectionConfig;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -100,6 +101,7 @@ public final class MainActivity extends Activity {
     private LinearLayout recordList, seatGrid;
     private int renderedSeatCount;
     private boolean launchAfterProjection;
+    private Runnable stopWait;
     private boolean startAfterUsagePermission;
     private EditText draftEditor;
     private boolean bindingDraft;
@@ -166,6 +168,7 @@ public final class MainActivity extends Activity {
         else registerReceiver(receiver, filter);
         receiverRegistered = true;
         preloadModel();
+        if(getIntent().getBooleanExtra("repairProjection",false)){getIntent().removeExtra("repairProjection");main.post(this::repairProjection);}
     }
 
     private void buildHeader() {
@@ -642,7 +645,7 @@ public final class MainActivity extends Activity {
         privacy.addView(text("本应用没有联网权限，也不读取麦克风。暂停时不处理音频或截图；停止监听会结束捕获前台服务，保留已固定的本局信息。悬浮助手只显示本局信息，可在通知中暂停或停止。", 13, MUTED, false));
         gap(privacy, 10);
         privacy.addView(text("使用前请征得参与者同意，并遵守所用平台规则。身份倾向是可解释的规则估计；话术为本地模板生成，请自行核实后使用。", 13, MUTED, false));
-        TextView version = text("狼语复盘 1.1  ·  Android 10+", 12, MUTED, false);
+        TextView version = text("狼语复盘 1.1.1  ·  Android 10+", 12, MUTED, false);
         version.setGravity(Gravity.CENTER);
         version.setPadding(0, dp(12), 0, dp(8));
         page.addView(version);
@@ -905,9 +908,14 @@ public final class MainActivity extends Activity {
     private void requestProjection() {
         try {
             MediaProjectionManager manager = (MediaProjectionManager) getSystemService(MEDIA_PROJECTION_SERVICE);
-            startActivityForResult(manager.createScreenCaptureIntent(), PROJECTION);
+            Intent permission = Build.VERSION.SDK_INT >= 34 && settings.getBoolean("screenRecognition",true)
+                    ? manager.createScreenCaptureIntent(MediaProjectionConfig.createConfigForDefaultDisplay()) : manager.createScreenCaptureIntent();
+            startActivityForResult(permission, PROJECTION);
         } catch (Exception error) { launchAfterProjection = false; toast("无法发起系统捕获授权：" + message(error)); }
     }
+    @Override protected void onNewIntent(Intent intent){super.onNewIntent(intent);setIntent(intent);if(intent.getBooleanExtra("repairProjection",false)){intent.removeExtra("repairProjection");repairProjection();}}
+    private void repairProjection(){if(isFinishing()||isDestroyed())return;if(stopWait!=null)main.removeCallbacks(stopWait);launchAfterProjection=true;if(CaptureService.running){serviceAction(CaptureService.ACTION_STOP);waitForCaptureStop(0);}else toggleCapture();}
+    private void waitForCaptureStop(int attempt){if(isFinishing()||isDestroyed())return;if(!CaptureService.running){stopWait=null;toggleCapture();return;}if(attempt>=20){stopWait=null;launchAfterProjection=false;toast("停止旧捕获超时，请手动停止后重试");return;}stopWait=()->waitForCaptureStop(attempt+1);main.postDelayed(stopWait,100);}
 
     @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -1348,6 +1356,7 @@ public final class MainActivity extends Activity {
 
     @Override protected void onDestroy() {
         visible = false;
+        if(stopWait!=null)main.removeCallbacks(stopWait);
         main.removeCallbacks(saveDraft);
         main.removeCallbacks(revealFocusedEditor);
         if (receiverRegistered) unregisterReceiver(receiver);

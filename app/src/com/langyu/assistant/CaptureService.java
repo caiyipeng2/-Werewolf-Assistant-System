@@ -61,7 +61,7 @@ public class CaptureService extends Service {
         if(intent==null)return START_NOT_STICKY;
         String action=intent.getAction();
         if(ACTION_STOP.equals(action)){stopSelf();return START_NOT_STICKY;}
-        if(ACTION_SCAN.equals(action)){if(running){startScreenMonitor();if(screenMonitor!=null)screenMonitor.requestScan();}else{screenStatus="请先开始监听并授权系统截图";publish();stopSelf();}return START_NOT_STICKY;}
+        if(ACTION_SCAN.equals(action)){exitOverlayEditing();if(running){screenStatus=paused?"监听已暂停，请先点击继续":"已收到识别请求，正在检查游戏画面…";publish();Toast.makeText(this,paused?"请先继续监听，再识别本局":"已请求识别本局",Toast.LENGTH_SHORT).show();startScreenMonitor();if(screenMonitor!=null)screenMonitor.requestScan();}else{screenStatus="请先开始监听并授权系统截图";publish();stopSelf();}return START_NOT_STICKY;}
         if(ACTION_UNLOCK.equals(action)||ACTION_NEW_MATCH.equals(action)){if(screenMonitor!=null)screenMonitor.invalidate();queueChange(()->{sessionBinder.reset(ACTION_NEW_MATCH.equals(action));screenStatus=sessionBinder.summary();syncSegment();if(screenMonitor!=null)screenMonitor.requestScan();publish();});return START_NOT_STICKY;}
         if(ACTION_OVERLAY.equals(action)){removeOverlay();showOverlay();return START_NOT_STICKY;}
         if(ACTION_PAUSE.equals(action)&&running){
@@ -146,6 +146,7 @@ public class CaptureService extends Service {
             TextView header=label("◈ 狼语  ·  拖动 / 点击折叠",13,Color.rgb(184,170,255));header.setContentDescription("拖动悬浮窗");overlay.addView(header);
             expanded=new LinearLayout(this);expanded.setOrientation(LinearLayout.VERTICAL);overlay.addView(expanded);overlayStatus=label(status,11,Color.rgb(112,221,199));expanded.addView(overlayStatus);seatText=label("",13,Color.WHITE);expanded.addView(seatText);overlayText=label("等待语音",13,Color.WHITE);overlayText.setMaxLines(4);expanded.addView(overlayText);
             overlayScreenStatus=label(screenStatus,11,Color.rgb(184,170,255));overlayScreenStatus.setMaxLines(2);expanded.addView(overlayScreenStatus);expanded.addView(button("识别本局",()->onStartCommand(new Intent().setAction(ACTION_SCAN),0,0)));
+            expanded.addView(button("重新授权截图",()->{exitOverlayEditing();startActivity(new Intent(this,MainActivity.class).putExtra("repairProjection",true).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP));}));
             LinearLayout row=new LinearLayout(this);row.addView(button("暂停/继续",()->onStartCommand(new Intent().setAction(ACTION_PAUSE),0,0)),new LinearLayout.LayoutParams(0,dp(48),1));row.addView(button("下一位",()->onStartCommand(new Intent().setAction(ACTION_NEXT),0,0)),new LinearLayout.LayoutParams(0,dp(48),1));row.addView(button("停止",this::stopSelf),new LinearLayout.LayoutParams(0,dp(48),1));expanded.addView(row);
             Button suggest=button("生成发言框架",()->{
                 try{
